@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  hicehehe_pytorch:
+    build: .
+    image: hicehehe/pytorch:latest
+    container_name: hicehehe_pytorch
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 2
+              capabilities: [gpu]
+    ports:
+      - "60000:8888"  # port for JupyterLab (or JupyterNotebook)
+      - "60001:22"  # port for ssh
+    volumes:
+    # map from workspace to $HOME/workspace
+      - /home/daoduyhung/hicehehe/python_docker/workspace:/home/hicehehe/workspace
+      
